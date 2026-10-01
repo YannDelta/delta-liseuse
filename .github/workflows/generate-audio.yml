@@ -15,12 +15,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Vérifier les outils audio
+      - name: Préparer les moteurs audio
         run: |
-          command -v ffmpeg || sudo apt-get install -y --no-install-recommends ffmpeg
-          command -v espeak-ng || sudo apt-get install -y --no-install-recommends espeak-ng
-          ffmpeg -version | head -1
-          espeak-ng --version | head -1
+          docker pull ghcr.io/openvoiceos/ovos-tts-plugin-espeakng:dev
+          docker pull jrottenberg/ffmpeg:7.1-alpine
 
       - name: Extraire le texte des 48 planches
         run: |
@@ -42,11 +40,13 @@ jobs:
 
       - name: Générer les MP3
         run: |
+          uid="$(id -u)"
+          gid="$(id -g)"
           for txt in .tts-text/P*.txt; do
             base="$(basename "$txt" .txt)"
-            espeak-ng -v fr -s 145 -f "$txt" -w "/tmp/$base.wav"
-            ffmpeg -loglevel error -y -i "/tmp/$base.wav" -codec:a libmp3lame -qscale:a 6 "audio/$base.mp3"
-            rm -f "/tmp/$base.wav"
+            docker run --rm --user "$uid:$gid" -v "$PWD:/work" --entrypoint espeak-ng               ghcr.io/openvoiceos/ovos-tts-plugin-espeakng:dev               -v fr -s 145 -f "/work/$txt" -w "/work/.tts-text/$base.wav"
+            docker run --rm --user "$uid:$gid" -v "$PWD:/work"               jrottenberg/ffmpeg:7.1-alpine               -loglevel error -y -i "/work/.tts-text/$base.wav"               -codec:a libmp3lame -qscale:a 6 "/work/audio/$base.mp3"
+            rm -f ".tts-text/$base.wav"
           done
           ls -lh audio | head
 
