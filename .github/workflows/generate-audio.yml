@@ -15,10 +15,21 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Préparer les moteurs audio
+      - name: Démarrer Kokoro
         run: |
-          docker pull ghcr.io/openvoiceos/ovos-tts-plugin-espeakng:dev
-          docker pull jrottenberg/ffmpeg:7.1-alpine
+          docker pull ghcr.io/remsky/kokoro-fastapi-cpu:latest
+          docker run -d --name kokoro -p 8880:8880 \
+            -e API_LOG_LEVEL=WARNING \
+            ghcr.io/remsky/kokoro-fastapi-cpu:latest
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:8880/health >/dev/null; then
+              echo "Kokoro prêt"
+              exit 0
+            fi
+            sleep 3
+          done
+          docker logs kokoro
+          exit 1
 
       - name: Extraire le texte des 48 planches
         run: |
@@ -38,15 +49,24 @@ jobs:
           console.log(`${pages.length} textes extraits`);
           NODE
 
-      - name: Générer les MP3
+      - name: Générer les MP3 avec Kokoro
         run: |
-          uid="$(id -u)"
-          gid="$(id -g)"
           for txt in .tts-text/P*.txt; do
             base="$(basename "$txt" .txt)"
-            docker run --rm --user "$uid:$gid" -v "$PWD:/work" --entrypoint espeak-ng               ghcr.io/openvoiceos/ovos-tts-plugin-espeakng:dev               -v fr -s 145 -f "/work/$txt" -w "/work/.tts-text/$base.wav"
-            docker run --rm --user "$uid:$gid" -v "$PWD:/work"               jrottenberg/ffmpeg:7.1-alpine               -loglevel error -y -i "/work/.tts-text/$base.wav"               -codec:a libmp3lame -qscale:a 6 "/work/audio/$base.mp3"
-            rm -f ".tts-text/$base.wav"
+            jq -n --rawfile input "$txt" '{
+              model:"kokoro",
+              input:$input,
+              voice:"ff_siwis",
+              response_format:"mp3",
+              speed:0.92,
+              stream:false
+            }' > .tts-text/request.json
+            curl -fsS -X POST http://127.0.0.1:8880/v1/audio/speech \
+              -H "Content-Type: application/json" \
+              --data-binary @.tts-text/request.json \
+              --output "audio/$base.mp3"
+            test -s "audio/$base.mp3"
+            echo "$base générée"
           done
           ls -lh audio | head
 
@@ -59,6 +79,6 @@ jobs:
           if git diff --cached --quiet; then
             echo "Aucun changement audio."
           else
-            git commit -m "Génère les narrations audio des planches"
+            git commit -m "Régénère les narrations avec Kokoro ff_siwis"
             git push
           fi
