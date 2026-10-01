@@ -26,7 +26,7 @@ jobs:
           node <<'NODE'
           const fs = require('fs');
           const source = fs.readFileSync('data.js', 'utf8');
-          const match = source.match(/window\\.DELTA_PAGES\\s*=\\s*(\\[[\\s\\S]*?\\]);\\s*for\\(const page/);
+          const match = source.match(/window\.DELTA_PAGES\s*=\s*(\[[\s\S]*?\]);\s*for\(const page/);
           if (!match) throw new Error('DELTA_PAGES introuvable');
           const pages = JSON.parse(match[1]);
           if (!Array.isArray(pages) || !pages.length) throw new Error('DELTA_PAGES vide');
