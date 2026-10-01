@@ -53,6 +53,10 @@ jobs:
         run: |
           for txt in .tts-text/P*.txt; do
             base="$(basename "$txt" .txt)"
+            if [ ! -s "$txt" ]; then
+              echo "$base sans texte : audio inchangé"
+              continue
+            fi
             jq -n --rawfile input "$txt" '{
               model:"kokoro",
               input:$input,
