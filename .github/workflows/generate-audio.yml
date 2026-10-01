@@ -25,13 +25,11 @@ jobs:
           mkdir -p .tts-text audio
           node <<'NODE'
           const fs = require('fs');
-          const vm = require('vm');
           const source = fs.readFileSync('data.js', 'utf8');
-          const sandbox = { window: {} };
-          vm.createContext(sandbox);
-          vm.runInContext(source, sandbox);
-          const pages = sandbox.window.DELTA_PAGES;
-          if (!Array.isArray(pages) || !pages.length) throw new Error('DELTA_PAGES introuvable');
+          const match = source.match(/window\\.DELTA_PAGES\\s*=\\s*(\\[[\\s\\S]*?\\]);\\s*for\\(const page/);
+          if (!match) throw new Error('DELTA_PAGES introuvable');
+          const pages = JSON.parse(match[1]);
+          if (!Array.isArray(pages) || !pages.length) throw new Error('DELTA_PAGES vide');
           for (const p of pages) {
             const n = String(p.number).padStart(2, '0');
             const text = (p.paragraphs || []).join('\n\n');
