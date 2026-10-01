@@ -1,0 +1,64 @@
+name: Générer les narrations
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/generate-audio.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Installer la synthèse vocale
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y espeak-ng ffmpeg
+
+      - name: Extraire le texte des 48 planches
+        run: |
+          mkdir -p .tts-text audio
+          node <<'NODE'
+          const fs = require('fs');
+          const vm = require('vm');
+          const source = fs.readFileSync('data.js', 'utf8');
+          const sandbox = { window: {} };
+          vm.createContext(sandbox);
+          vm.runInContext(source, sandbox);
+          const pages = sandbox.window.DELTA_PAGES;
+          if (!Array.isArray(pages) || !pages.length) throw new Error('DELTA_PAGES introuvable');
+          for (const p of pages) {
+            const n = String(p.number).padStart(2, '0');
+            const text = (p.paragraphs || []).join('\n\n');
+            fs.writeFileSync(`.tts-text/P${n}.txt`, text, 'utf8');
+          }
+          console.log(`${pages.length} textes extraits`);
+          NODE
+
+      - name: Générer les MP3
+        run: |
+          for txt in .tts-text/P*.txt; do
+            base="$(basename "$txt" .txt)"
+            espeak-ng -v fr -s 145 -f "$txt" -w "/tmp/$base.wav"
+            ffmpeg -loglevel error -y -i "/tmp/$base.wav" -codec:a libmp3lame -qscale:a 6 "audio/$base.mp3"
+            rm -f "/tmp/$base.wav"
+          done
+          ls -lh audio | head
+
+      - name: Publier les narrations
+        run: |
+          rm -rf .tts-text
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audio
+          if git diff --cached --quiet; then
+            echo "Aucun changement audio."
+          else
+            git commit -m "Génère les narrations audio des planches"
+            git push
+          fi
