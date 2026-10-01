@@ -1,0 +1,75 @@
+name: Test P01 Kokoro
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/test-p01-kokoro.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  p01-kokoro:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extraire le texte de P01
+        run: |
+          mkdir -p .tts-text audio
+          node <<'NODE'
+          const fs = require('fs');
+          const source = fs.readFileSync('data.js', 'utf8');
+          const match = source.match(/window\.DELTA_PAGES\s*=\s*(\[[\s\S]*?\]);\s*for\(const page/);
+          if (!match) throw new Error('DELTA_PAGES introuvable');
+          const pages = JSON.parse(match[1]);
+          const p = pages.find(x => Number(x.number) === 1);
+          if (!p) throw new Error('P01 introuvable');
+          fs.writeFileSync('.tts-text/P01.txt', (p.paragraphs || []).join('\n\n'), 'utf8');
+          NODE
+
+      - name: Démarrer Kokoro
+        run: |
+          docker pull ghcr.io/remsky/kokoro-fastapi-cpu:latest
+          docker run -d --name kokoro -p 8880:8880 \
+            -e API_LOG_LEVEL=WARNING \
+            ghcr.io/remsky/kokoro-fastapi-cpu:latest
+          for i in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:8880/health >/dev/null; then
+              echo "Kokoro prêt"
+              exit 0
+            fi
+            sleep 3
+          done
+          docker logs kokoro
+          exit 1
+
+      - name: Générer P01 avec la voix française Siwis
+        run: |
+          jq -n --rawfile input .tts-text/P01.txt '{
+            model:"kokoro",
+            input:$input,
+            voice:"ff_siwis",
+            response_format:"mp3",
+            speed:0.92,
+            stream:false
+          }' > .tts-text/request.json
+          curl -fsS -X POST http://127.0.0.1:8880/v1/audio/speech \
+            -H "Content-Type: application/json" \
+            --data-binary @.tts-text/request.json \
+            --output audio/P01.mp3
+          test -s audio/P01.mp3
+          ls -lh audio/P01.mp3
+
+      - name: Publier uniquement P01
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add audio/P01.mp3
+          if git diff --cached --quiet; then
+            echo "P01 inchangée."
+          else
+            git commit -m "Teste P01 avec la voix Kokoro ff_siwis"
+            git push
+          fi
