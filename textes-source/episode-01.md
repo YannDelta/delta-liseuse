@@ -63,17 +63,29 @@ Absorbé par ses pensées, Orvenn répondit :
 
 ## P05 — La Vieille Lune
 
-Orvenn se redressa sur un coude et commença à énumérer ce qu’il faudrait reprendre. Tout en parlant, il ramena un genou sous lui et se releva. Lorsqu’il répondit enfin à Carnoc, il se tenait debout devant lui.
+— La Vieille Lune, comment ça ? demanda Carnoc.
 
-— Mon père m’attend aussi à l’atelier.
+Orvenn resta debout devant eux.
 
-Il croisa un bras sur sa poitrine et porta l’autre main à son visage. Il resta ainsi un instant, cherchant ses mots.
+— Mon père a dit que si je la réparais…
 
-— Je suis allé voir la Vieille Lune. Je pensais terminer les travaux pour qu’on puisse s’en servir.
+Il s’interrompit un instant, cherchant ses mots.
 
-Belenmar riait déjà, assis sur la partie sèche du talus.
+— On pourra sortir avec.
 
-Carnoc arracha une tige sèche. Il réfléchit un instant, puis remit leur départ à plus tard dans la semaine. Maelrun l’écoutait en surveillant les bêtes. Une brebis avait gagné le bord du creux ; elle s’arrêta pour brouter et les autres restèrent où elles étaient.
+Carnoc le regarda.
+
+— La réparer ?
+
+— Oui. Je suis allé voir et j’ai commencé.
+
+Belenmar se releva en répondant :
+
+— Ne lui mets pas ces idées dans la tête.
+
+Puis il regarda les autres.
+
+— Venez, on rentre.
 
 ## P06 — La rencontre des enfants
 
