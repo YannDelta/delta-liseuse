@@ -2,9 +2,11 @@ name: Générer les narrations
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - ".github/workflows/generate-audio.yml"
+    inputs:
+      pages:
+        description: "Pages à régénérer (ex. 03 04 05) ou all"
+        required: false
+        default: "all"
 
 permissions:
   contents: write
@@ -50,9 +52,20 @@ jobs:
           NODE
 
       - name: Générer les MP3 avec Kokoro
+        env:
+          PAGES: ${{ inputs.pages }}
         run: |
-          for base in P03 P04 P05; do
-            txt=".tts-text/$base.txt"
+          if [ -z "$PAGES" ] || [ "$PAGES" = "all" ]; then
+            files=(.tts-text/P*.txt)
+          else
+            files=()
+            for n in $PAGES; do
+              n="$(printf '%02d' "$((10#$n))")"
+              files+=(".tts-text/P$n.txt")
+            done
+          fi
+          for txt in "${files[@]}"; do
+            base="$(basename "$txt" .txt)"
             if [ ! -s "$txt" ]; then
               echo "$base sans texte : audio inchangé"
               continue
