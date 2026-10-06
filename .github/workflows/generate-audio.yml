@@ -51,8 +51,8 @@ jobs:
 
       - name: Générer les MP3 avec Kokoro
         run: |
-          for txt in .tts-text/P*.txt; do
-            base="$(basename "$txt" .txt)"
+          for base in P03 P04 P05; do
+            txt=".tts-text/$base.txt"
             if [ ! -s "$txt" ]; then
               echo "$base sans texte : audio inchangé"
               continue
