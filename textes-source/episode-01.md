@@ -91,13 +91,15 @@ Puis il regarda les autres.
 
 Le soleil commençait à leur réchauffer le dos quand Belenmar se releva. Carnoc reprit les pièges, tandis que Maelrun rangeait sa fronde et ramassait son bâton. Il regarda encore le troupeau avant de suivre les garçons vers les bois.
 
-Le chemin descendait entre les ajoncs. À l’entrée du couvert, l’air devint plus frais et leurs pas s’enfoncèrent dans une terre encore molle. Carnoc parlait toujours de sa barque lorsqu’il aperçut les enfants.
+Le chemin descendait entre les ajoncs. À l’entrée du couvert, l’air devint plus frais et leurs pas s’enfoncèrent dans une terre encore molle. Ils marchèrent un moment sans échanger grand-chose. Carnoc imaginait déjà les sorties en mer qu’ils pourraient faire à bord de la Vieille Lune. Impatient d’en savoir davantage, il finit par revenir sur le sujet. Mais avant qu’Orvenn ait pu lui répondre, celui-ci aperçut les enfants entre les arbres.
 
 — Brieg !
 
-Il avança vers lui, mais le garçon resta entre les arbres. Il tenait Elen par la main ; Ronan marchait presque contre son autre côté. Derrière eux, les plus jeunes se serraient autour d’Elvenn.
+Carnoc fit un pas vers les enfants, mais Maelrun le retint d’un geste. Il passa devant lui et s’avança le premier vers Brieg.
 
-Maelrun ralentit. Le vieux druide regardait au-delà du chemin, puis revenait vers les enfants pour vérifier qu’ils le suivaient. Son bâton demeurait levé dans sa main.
+Le garçon resta entre les arbres. Il tenait Elen par la main ; Ronan marchait presque contre son autre côté. Derrière eux, les plus jeunes se serraient autour d’Elvenn.
+
+Maelrun ralentit. Elvenn, visiblement préoccupé, jeta un regard derrière lui avant de se retourner vers Maelrun. Son bâton resta levé dans sa main.
 
 — Qu’est-ce que tu as vu ? demanda Maelrun.
 
