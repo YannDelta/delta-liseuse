@@ -41,7 +41,7 @@ window.deltaReadButton=function(){
     if(live)live.textContent='Le fichier audio de cette planche n’est pas encore disponible.';
   });
 };
-</script><script src="assets.js?v=20260928-readerfix1"></script><script src="data.js?v=20261005-text-p04"></script><script src="current-images.js?v=20260928-upload1"></script><script>
+</script><script src="assets.js?v=20260928-readerfix1"></script><script src="data.js?v=20261007-text-p06"></script><script src="current-images.js?v=20260928-upload1"></script><script>
 const pages=window.DELTA_PAGES,$=id=>document.getElementById(id);let index=0,versionIndex=0,zoomPercent=100,focusBefore=null,reading=false,readPaused=false,readToken=0;
 DeltaImages.reset(pages);
 function imageSettled(p){const option=$('jump').querySelector('option[value="'+p.id+'"]');if(option)option.textContent='P'+String(p.number).padStart(2,'0')+' · '+p.title+(p.hasImage?'':' · image absente');if(p===pages[index])render();}
