@@ -119,13 +119,11 @@ Maelrun acquiesça. Brieg les suivit des yeux pendant qu’ils s’éloignaient,
 
 ## P08 — Arua découvre la baie
 
-Arua avait quitté Arloc plus tôt dans la matinée pour prendre des nouvelles d’un village du sud. Elle avait suivi la ria, remonté jusqu’au passage de la rivière et gagné l’autre rive. Sous les arbres, son cheval avançait avec précaution dans les parties encore molles du chemin.
+Arua avait quitté Arloc plus tôt dans la matinée pour prendre des nouvelles d’un village du sud. Elle avait suivi la ria, remonté jusqu’au passage de la rivière et gagné l’autre rive. Sous les arbres, son cheval avançait avec précaution dans les parties encore molles du chemin. À mesure qu’elle approchait de l’ouverture vers la baie, la vue se dégagea entre les troncs. Tout au fond de la ria, près de son débouché, un navire était au mouillage.
 
-La baie s’ouvrit peu à peu devant elle. Entre les troncs, elle aperçut un navire au mouillage. Elle ralentit pour le regarder. À chaque pas, une autre partie de la rive se découvrait ; une fumée apparut, puis une seconde, plus basse. Elle poussa jusqu’à un endroit où les branches s’espaçaient.
+Elle ralentit. La présence du navire suffisait déjà à lui sembler anormale. Puis elle aperçut une barque qu’elle ne reconnut pas, plus proche de la rive. Elle suivit sa progression quelques instants avant de porter son regard plus loin. Le village apparut enfin entre les ouvertures du couvert. D’abord les toits, puis la fumée. Quand elle distingua les flammes, elle arrêta brusquement son cheval. Pendant quelques secondes, elle resta figée, incapable de détacher les yeux d’Arloc. La surprise la saisit d’abord, puis une inquiétude plus froide prit le dessus. Ce qu’elle voyait n’avait rien d’un accident ordinaire.
 
-Arloc brûlait de l’autre côté de l’eau.
-
-Elle retint le cheval et chercha à distinguer les maisons. Une lueur grandit entre deux toits. Il lui fallut un moment pour détacher les yeux du village et regarder les accès autour d’elle.
+La barque continuait de progresser vers le bas de l’estran. Arua la suivit du regard et distingua trois hommes. Elle savait qu’elle ne pouvait pas les affronter seule. Revenir sur ses pas lui permettrait de chercher de l’aide ; retourner jusqu’à la chaumière de Morna en était une autre possibilité. Mais chaque détour lui ferait perdre du temps. Elle continua donc d’observer, cherchant encore à comprendre ce qui se passait et à qui elle avait affaire. Lorsqu’elle eut enfin la certitude que les hommes étaient étrangers au village, la barque approchait déjà de l’estran.
 
 ## P09 — Le débarquement
 
